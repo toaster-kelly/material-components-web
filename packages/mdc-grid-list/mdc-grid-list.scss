@@ -1,0 +1,237 @@
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@import "@material/rtl/mixins";
+@import "@material/theme/mixins";
+
+$mdc-grid-list-tile-width: 200px;
+$mdc-grid-list-tile-secondary-padding: 16px;
+$mdc-grid-list-tile-secondary-padding-narrow: 8px;
+$mdc-grid-list-oneline-cap-secondary-height: 48px;
+$mdc-grid-list-twoline-cap-secondary-height: 68px;
+$mdc-grid-list-tile-secondary-icon-size: 24px;
+
+// postcss-bem-linter: define grid-list
+// stylelint-disable plugin/selector-bem-pattern
+@mixin mdc-grid-list--tile-aspect($width-height-ratio) {
+  .mdc-grid-tile .mdc-grid-tile__primary {
+    padding-bottom: calc(100% / #{$width-height-ratio});
+  }
+}
+
+@mixin mdc-grid-list--tile-gutter($gutter-width) {
+  .mdc-grid-tile {
+    margin: $gutter-width/2 0;
+    padding: 0 $gutter-width/2;
+
+    &__secondary {
+      left: $gutter-width/2;
+      width: calc(100% - #{$gutter-width});
+    }
+  }
+
+  .mdc-grid-list__tiles {
+    margin: $gutter-width/2 auto;
+  }
+}
+// stylelint-enable plugin/selector-bem-pattern
+
+.mdc-grid-list {
+  /*
+   *  Default grid list style:
+   *  - mdc-grid-list--tile-gutter-4
+   *  - mdc-grid-list--tile-aspect-1x1
+   *  - mdc-grid-list--oneline-caption
+   *  - mdc-grid-list--footer-caption
+   *  - mdc-grid-list--no-icon
+   *
+   */
+  @include mdc-grid-list--tile-aspect(1);
+  @include mdc-grid-list--tile-gutter(4px);
+
+  // stylelint-disable plugin/selector-bem-pattern
+  .mdc-grid-tile {
+    &__secondary {
+      bottom: 0;
+      height: $mdc-grid-list-oneline-cap-secondary-height;
+      padding: $mdc-grid-list-tile-secondary-padding;
+    }
+
+    &__icon {
+      font-size: 0;
+    }
+  }
+  // stylelint-enable plugin/selector-bem-pattern
+
+  &__tiles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+// stylelint-disable plugin/selector-bem-pattern
+.mdc-grid-list--tile-gutter-1 {
+  @include mdc-grid-list--tile-gutter(1px);
+}
+
+.mdc-grid-list--tile-aspect-16x9 {
+  @include mdc-grid-list--tile-aspect(16 / 9);
+}
+
+.mdc-grid-list--tile-aspect-3x2 {
+  @include mdc-grid-list--tile-aspect(3 / 2);
+}
+
+.mdc-grid-list--tile-aspect-2x3 {
+  @include mdc-grid-list--tile-aspect(2 / 3);
+}
+
+.mdc-grid-list--tile-aspect-4x3 {
+  @include mdc-grid-list--tile-aspect(4 / 3);
+}
+
+.mdc-grid-list--tile-aspect-3x4 {
+  @include mdc-grid-list--tile-aspect(3 / 4);
+}
+
+.mdc-grid-list--twoline-caption {
+  .mdc-grid-tile__secondary {
+    height: $mdc-grid-list-twoline-cap-secondary-height;
+  }
+}
+
+.mdc-grid-list--header-caption {
+  .mdc-grid-tile__secondary {
+    top: 0;
+    bottom: auto;
+  }
+}
+
+.mdc-grid-list--with-icon-align-start {
+  .mdc-grid-tile__secondary {
+    padding-right: $mdc-grid-list-tile-secondary-padding-narrow;
+    padding-left: $mdc-grid-list-tile-secondary-padding * 2 + $mdc-grid-list-tile-secondary-icon-size;
+
+    .mdc-grid-tile__icon {
+      left: $mdc-grid-list-tile-secondary-padding;
+      font-size: $mdc-grid-list-tile-secondary-icon-size;
+    }
+  }
+
+  @include mdc-rtl {
+    .mdc-grid-tile__secondary {
+      padding-right: $mdc-grid-list-tile-secondary-padding * 2 + $mdc-grid-list-tile-secondary-icon-size;
+      padding-left: $mdc-grid-list-tile-secondary-padding-narrow;
+
+      .mdc-grid-tile__icon {
+        right: $mdc-grid-list-tile-secondary-padding;
+      }
+    }
+  }
+}
+
+.mdc-grid-list--with-icon-align-end {
+  .mdc-grid-tile__secondary {
+    padding-right: $mdc-grid-list-tile-secondary-padding * 2 + $mdc-grid-list-tile-secondary-icon-size;
+
+    .mdc-grid-tile__icon {
+      right: $mdc-grid-list-tile-secondary-padding;
+      font-size: $mdc-grid-list-tile-secondary-icon-size;
+    }
+  }
+
+  @include mdc-rtl {
+    .mdc-grid-tile__secondary {
+      padding-left: $mdc-grid-list-tile-secondary-padding * 2 + $mdc-grid-list-tile-secondary-icon-size;
+
+      .mdc-grid-tile__icon {
+        left: $mdc-grid-list-tile-secondary-padding;
+      }
+    }
+  }
+}
+// stylelint-enable plugin/selector-bem-pattern
+// postcss-bem-linter: end
+
+// postcss-bem-linter: define grid-tile
+.mdc-grid-tile {
+  // stylelint-disable plugin/selector-bem-pattern
+  --mdc-grid-tile-width: 200px;
+  // stylelint-enable plugin/selector-bem-pattern
+
+  display: block;
+  position: relative;
+  width: var(--mdc-grid-list-tile-width);
+  width: $mdc-grid-list-tile-width;
+
+  &__primary {
+    position: relative;
+    height: 0;
+
+    @include mdc-theme-prop(background-color, background);
+    @include mdc-theme-prop(color, text-primary-on-background);
+
+    &-content {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+  }
+
+  &__secondary {
+    position: absolute;
+    box-sizing: border-box;
+
+    @include mdc-theme-prop(background-color, primary);
+    @include mdc-theme-prop(color, text-primary-on-primary);
+
+    .mdc-grid-tile__title {
+      display: block;
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 16px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .mdc-grid-tile__support-text {
+      display: block;
+      margin: 0;
+      margin-top: 4px;
+      padding: 0;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .mdc-grid-tile__icon {
+      position: absolute;
+      top: calc(50% - #{$mdc-grid-list-tile-secondary-icon-size} / 2);
+    }
+  }
+}
+// postcss-bem-linter: end
